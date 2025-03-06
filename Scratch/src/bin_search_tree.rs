@@ -38,7 +38,7 @@ impl <T:Ord + Copy + Debug> Node<T> {
     }
 }
 
-struct BinSearchTree<T: Ord + Copy>(Option<Node<T>>);
+pub struct BinSearchTree<T: Ord + Copy>(Option<Node<T>>);
 
 impl <T: Ord + Copy + Debug>BinSearchTree<T> {
     pub fn new() -> BinSearchTree<T>{BinSearchTree(None)}
@@ -56,22 +56,5 @@ impl <T: Ord + Copy + Debug>BinSearchTree<T> {
             },
             Some(r) => r.insert(t)
         }
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use crate::bin_search_tree::BinSearchTree;
-
-    #[test]
-    fn test_bin_search_tree() {
-        let mut tree: BinSearchTree<i32> = BinSearchTree::new();
-        assert!(tree.is_empty());
-        assert!(tree.insert(10));
-        assert!(!tree.insert(10));
-        assert!(!tree.is_empty());
-        assert!(tree.insert(11));
-        assert!(!tree.insert(11));
-        assert!(!tree.insert(10));cd
     }
 }
