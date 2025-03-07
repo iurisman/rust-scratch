@@ -3,13 +3,13 @@ use std::cmp::Ordering::*;
 use std::fmt::Debug;
 
 #[derive(Debug)]
-struct Node<T:Ord + Copy> {
+struct Node<T:Ord> {
     data: T,
     left: Option<Box<Node<T>>>,
     right: Option<Box<Node<T>>>
 }
 
-impl <T:Ord + Copy + Debug> Node<T> {
+impl <T:Ord + Debug> Node<T> {
 
     fn new(t: T) -> Node<T> {Node { data:t, left: None, right: None } }
 
@@ -38,9 +38,9 @@ impl <T:Ord + Copy + Debug> Node<T> {
     }
 }
 
-pub struct BinSearchTree<T: Ord + Copy>(Option<Node<T>>);
+struct BinSearchTree<T: Ord>(Option<Node<T>>);
 
-impl <T: Ord + Copy + Debug>BinSearchTree<T> {
+impl <T: Ord + Debug>BinSearchTree<T> {
     pub fn new() -> BinSearchTree<T>{BinSearchTree(None)}
 
     /// New instance of tree node.
@@ -56,5 +56,54 @@ impl <T: Ord + Copy + Debug>BinSearchTree<T> {
             },
             Some(r) => r.insert(t)
         }
+    }
+
+    pub fn size(&self) -> usize {
+        0
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use rand::Rng;
+    use crate::bin_search_tree::BinSearchTree;
+    #[test]
+    fn test() {
+        let mut tree: BinSearchTree<i32> = BinSearchTree::new();
+        assert!(tree.is_empty());
+        assert!(tree.insert(10));
+        assert!(!tree.insert(10));
+        assert!(!tree.is_empty());
+        assert!(tree.insert(11));
+        assert!(!tree.insert(11));
+        assert!(!tree.insert(10));
+        assert!(tree.insert(8));
+        assert!(!tree.insert(8));
+
+        let mut rand = rand::rng();
+        let mut keys: Vec<i32> = Vec::new();
+
+        // Ensure all inserted values are in the tree.
+        for _ in 0..1000 {
+            let key = rand.random::<i32>() % 1000;
+            keys.push(key);
+            tree.insert(key);
+        }
+
+        // Use iter() because we will need keys again.
+        for key in keys.iter() {
+            assert!(!tree.insert(*key));
+        }
+
+        // Ensure that none of a number of other values are in the list.
+        let mut non_keys_count: usize = 0;
+        while non_keys_count < 1000 {
+            let key = rand.random::<i32>() % 1000;
+            if !keys.contains(&key) {
+                non_keys_count += 1;
+                assert!(tree.insert(key), "Key {key} is not in the keys list but insert() returned false ({non_keys_count})");
+            }
+        }
+
     }
 }
