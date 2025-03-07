@@ -36,6 +36,11 @@ impl <T:Ord + Debug> Node<T> {
             Equal => false
         }
     }
+
+    fn size(&self) -> usize {
+        self.left.as_ref().map_or(0, |left| left.size()) +
+            self.right.as_ref().map_or(0, |right| right.size()) + 1
+    }
 }
 
 struct BinSearchTree<T: Ord>(Option<Node<T>>);
@@ -59,7 +64,7 @@ impl <T: Ord + Debug>BinSearchTree<T> {
     }
 
     pub fn size(&self) -> usize {
-        0
+        self.0.as_ref().map_or(0, |node| node.size())
     }
 }
 
@@ -79,6 +84,7 @@ mod tests {
         assert!(!tree.insert(10));
         assert!(tree.insert(8));
         assert!(!tree.insert(8));
+        assert_eq!(3, tree.size());
 
         let mut rand = rand::rng();
         let mut keys: Vec<i32> = Vec::new();
@@ -96,14 +102,14 @@ mod tests {
         }
 
         // Ensure that none of a number of other values are in the list.
-        let mut non_keys_count: usize = 0;
-        while non_keys_count < 1000 {
+        let mut non_keys: Vec<i32> = Vec::new();
+        while non_keys.len() < 1000 {
             let key = rand.random::<i32>() % 1000;
-            if !keys.contains(&key) {
-                non_keys_count += 1;
-                assert!(tree.insert(key), "Key {key} is not in the keys list but insert() returned false ({non_keys_count})");
+            if !keys.contains(&key) && !non_keys.contains(&key) {
+                non_keys.push(key);
+                assert!(tree.insert(key), "Key {key} is not in the keys list but insert() returned false");
             }
         }
-
+        assert_eq!(2000, non_keys.len());
     }
 }
