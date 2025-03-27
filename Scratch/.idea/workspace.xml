@@ -7,26 +7,7 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b2e9de0d-8418-470a-8833-2fe84a64da6b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BinarySearchTree/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BinarySearchTree/.idea/binary_search_tree.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BinarySearchTree/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BinarySearchTree/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BinarySearchTree/Cargo.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BinarySearchTree/Cargo.toml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BinarySearchTree/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BinarySearchTree/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BinarySearchTree/src/lib.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BinarySearchTree/src/test.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/rust-scratch.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cargo.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bin_search_tree.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
-    </list>
+    <list default="true" id="b2e9de0d-8418-470a-8833-2fe84a64da6b" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -229,7 +210,7 @@
       <workItem from="1741829036009" duration="4135000" />
       <workItem from="1741964486919" duration="613000" />
       <workItem from="1742840744280" duration="5069000" />
-      <workItem from="1742854579775" duration="19610000" />
+      <workItem from="1742854579775" duration="19959000" />
     </task>
     <servers />
   </component>
