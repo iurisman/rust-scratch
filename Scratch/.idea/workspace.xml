@@ -7,7 +7,11 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b2e9de0d-8418-470a-8833-2fe84a64da6b" name="Changes" comment="" />
+    <list default="true" id="b2e9de0d-8418-470a-8833-2fe84a64da6b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../leetcode/src/longest_substring.rs" beforeDir="false" afterPath="$PROJECT_DIR$/../leetcode/src/longest_substring.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../leetcode/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/../leetcode/src/main.rs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -210,7 +214,8 @@
       <workItem from="1741829036009" duration="4135000" />
       <workItem from="1741964486919" duration="613000" />
       <workItem from="1742840744280" duration="5069000" />
-      <workItem from="1742854579775" duration="19959000" />
+      <workItem from="1742854579775" duration="21818000" />
+      <workItem from="1743039181117" duration="310000" />
     </task>
     <servers />
   </component>

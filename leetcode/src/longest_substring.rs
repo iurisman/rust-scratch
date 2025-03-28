@@ -1,37 +1,53 @@
-// https://leetcode.com/problems/add-two-numbers/
-fn add_two_numbers(l1: &Vec<u8>, l2: &Vec<u8>) -> Vec<u8> {
-    let mut i1 = l1.iter().rev();
-    let mut i2 = l2.iter().rev();
-    let mut carry = 0;
-    let mut result = Vec::<u8>::new();
-    loop {
-        let sum_opt = match (i1.next(), i2.next()) {
-            (None, None) => None,
-            (Some(x), Some(y)) => Some(carry + x + y),
-            (None, Some(y)) => Some(y + carry),
-            (Some(x), None) => Some(x + carry),
-        };
-        match sum_opt {
-            None => break,
-            Some(sum) => {
-                carry = sum / 10;
-                result.insert(0, sum - carry * 10);
+// https://leetcode.com/problems/longest-substring-without-repeating-characters/
+fn lss(string: &str) -> String {
+
+    if string.len() < 2 {
+        return String::from(string);
+    }
+
+    // Convert input to an array.
+    let string_array = string.chars().collect::<Vec<char>>();
+    let (mut i, mut j) = (0usize, 1usize);
+    // Used to check that a new char is not already in the slice.
+    let mut slice_set = std::collections::HashSet::new();
+    slice_set.insert(string_array[i]);
+    let mut result: Vec<char> = Vec::new();
+//    let mut left_char_to_eliminate: Option<char> = None;
+//    let mut already_eliminated = false;
+    while j < string_array.len() {
+        let right = &string_array[j];
+        if slice_set.insert(*right) {
+            // current right char was not a dupe.
+            j += 1;
+            continue;
+        } else {
+            // current right_char was a dupe.
+            let candidate = &string_array[i..j];
+            if candidate.len() > result.len() {
+                result = candidate.to_vec();
             }
+            // advance i until it points one past the previous occurrence of `right`.
+            while string_array[i] != *right {
+                slice_set.remove(&string_array[i]);
+                i += 1;
+            }
+            i += 1;
+            j += 1;
         }
     }
-    if carry > 0 {
-        result.insert(0, carry);
-    }
-    result.reverse();
-    result
+
+    let foo: String = result.iter().copied().collect();
+    foo
 }
+
+
 
 #[cfg(test)]
 mod tests {
-    use crate::add_two_numbers::add_two_numbers;
+    use crate::longest_substring::lss;
 
     #[test]
-    fn test_add_two_numbers() {
-        println!("{:?}", add_two_numbers(&vec![2, 4, 3], &vec![5, 6, 4]));
+    fn test() {
+        println!("{:?}", lss("abcabcbb"));
     }
 }
