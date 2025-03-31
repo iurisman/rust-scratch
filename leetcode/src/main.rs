@@ -2,10 +2,10 @@
 mod add_two_numbers;
 mod longest_substring;
 fn main() {
-    println!("{}", mk_slice())
+    println!("{}", mk_slice("foo bar baz"));
 }
 
-fn mk_slice() -> str {
-    let str = Vec::from("foo");
+fn mk_slice(string: &str) -> &str {
+    &string[2..3]
 
 }
