@@ -1,30 +1,31 @@
 // https://leetcode.com/problems/longest-substring-without-repeating-characters/
-fn lss(string: &str) -> String {
+fn lss2(string: &str) -> &str {
 
     if string.len() < 2 {
-        return String::from(string);
+        return string;
     }
 
-    // Convert input to an array. This is an expensive copy that we'll have to deal with.
-    let string_array = string.chars().collect::<Vec<char>>();
+    // Current left and right indices.
     let (mut i, mut j) = (0usize, 1usize);
+
+    // Best result so far
+    let mut result = &string[0..1];
+
     // Used to check that a new char is not already in the slice.
     let mut slice_set = std::collections::HashSet::new();
-    slice_set.insert(string_array[i]);
-    let mut result: Vec<char> = Vec::new();
-//    let mut left_char_to_eliminate: Option<char> = None;
-//    let mut already_eliminated = false;
-    while j < string_array.len() {
-        let right = string_array[j];
+    slice_set.insert(&string[0..1]);
+
+    while j < string.len() {
+        let right = &string[j..j+1];
         if ! slice_set.insert(right) {
             // current right_char was a dupe.
-            let candidate = &string_array[i..j];
+            let candidate = &string[i..j];
             if candidate.len() > result.len() {
-                result = candidate.to_vec();
+                result = candidate;
             }
             // advance i until it points one past the previous occurrence of `right`.
-            while string_array[i] != right {
-                slice_set.remove(&string_array[i]);
+            while &string[i..i+1] != right {
+                slice_set.remove(&string[i..i+1]);
                 i += 1;
             }
             i += 1;
@@ -33,20 +34,17 @@ fn lss(string: &str) -> String {
     }
 
     // Check the tail section
-    let candidate = &string_array[i..j];
+    let candidate = &string[i..j];
     if candidate.len() > result.len() {
-        result = candidate.to_vec();
+        result = candidate;
     }
 
-    let foo: String = result.iter().copied().collect();
-    foo
+    result
 }
-
-
 
 #[cfg(test)]
 mod tests {
-    use crate::longest_substring::lss;
+    use crate::longest_substring::lss2;
     use rand::Rng;
 
     #[test]
@@ -54,11 +52,9 @@ mod tests {
         fn next_string() -> String {
             let chars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
             let mut rng = rand::rng();
-            (0..8).map(|_| chars[rng.random_range(0..chars.len())]).collect::<String>()
+            (0..10).map(|_| chars[rng.random_range(0..chars.len())]).collect::<String>()
         }
-        // let string = "hdfdhcbe"; //      => "hdf"
-        // println!("{} => {:?}", string, lss(string));
         let string = next_string();
-        println!("{} => {:?}", string, lss(&string));
+        println!("{} => {:?}", string, lss2(&string));
     }
 }
