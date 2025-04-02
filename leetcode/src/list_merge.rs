@@ -13,25 +13,22 @@ fn merge<T: Ord + Clone>(vec1: Vec<T>, vec2: Vec<T>) -> Vec<T> {
         match (&next1_opt, &next2_opt) {
             (Some(t1), Some(t2)) => {
                 if *t1 > *t2 {
-                    merged.push((*t1).to_owned());
+                    merged.push((*t1).clone());
                     next1_opt = iter1.next();
                 } else {
-                    merged.push((*t2).to_owned());
+                    merged.push((*t2).clone());
                     next2_opt = iter2.next();
                 }
             }
             (Some(t1), None) => {
-                merged.push((*t1).to_owned());
+                merged.push((*t1).clone());
                 next1_opt = iter1.next();
             }
             (None, Some(t2)) => {
-                merged.push((*t2).to_owned());
+                merged.push((*t2).clone());
                 next2_opt = iter2.next();
             }
-            (None, None) => {
-                next1_opt = None;
-                next2_opt = None;
-            }
+            (None, None) => {}
         }
     }
     merged
