@@ -1,4 +1,4 @@
-use std::collections::{LinkedList, VecDeque};
+use std::collections::{LinkedList};
 
 // https://leetcode.com/problems/longest-substring-without-repeating-characters/
 fn code(string: &str, rows: usize) -> String {
