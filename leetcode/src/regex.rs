@@ -1,5 +1,4 @@
-//use anyhow::{anyhow, Result};
-//use std::error::Error;
+use crate::push_back_itrerator::PushBackChars;
 
 // https://leetcode.com/problems/regular-expression-matching/
 // Supports *, ., \ escape
@@ -21,8 +20,8 @@ impl Pattern {
     fn matches(&self, word: String) -> bool {
         let mut pattern_ix = 0;
         let mut escaping = false;
-        let input_chars = word.chars();
-        for char in input_chars {
+        let mut input_chars = PushBackChars::new(word.chars());
+        while let Some(char) = input_chars.next() {
             if pattern_ix == self.pattern_chars.len() {
                 // We've exhausted the pattern, but not yet the string.
                 // the last pattern char was not '*'
@@ -33,7 +32,7 @@ impl Pattern {
                     escaping = true;
                     pattern_ix = pattern_ix + 1;
                     // Re-evaluate the current char as escaped.
-                    //input_chars.push(char);
+                    input_chars.push(char);
                 },
                 '.' if !escaping => {
                     pattern_ix = pattern_ix + 1;
@@ -68,37 +67,37 @@ mod tests {
 
     #[test]
     fn test() {
-        // assert!(Pattern::new("".to_string()).is_err());
-        // assert!(Pattern::new("a".to_string()).unwrap().matches("a".to_string()));
-        // assert!(!Pattern::new("a".to_string()).unwrap().matches("ab".to_string()));
-        // assert!(!Pattern::new("a".to_string()).unwrap().matches("ba".to_string()));
-        // assert!(!Pattern::new("a".to_string()).unwrap().matches("aab".to_string()));
-        // assert!(!Pattern::new("a".to_string()).unwrap().matches("baa".to_string()));
-        //
-        // assert!(Pattern::new("a.".to_string()).unwrap().matches("ab".to_string()));
-        // assert!(Pattern::new("a..".to_string()).unwrap().matches("abc".to_string()));
-        // assert!(!Pattern::new("a.".to_string()).unwrap().matches("abc".to_string()));
-        // assert!(Pattern::new("..c".to_string()).unwrap().matches("abc".to_string()));
-        // assert!(Pattern::new(".c".to_string()).unwrap().matches("ac".to_string()));
-        // assert!(!Pattern::new("..c".to_string()).unwrap().matches("ac".to_string()));
-        //
-        // assert!(Pattern::new(".b.".to_string()).unwrap().matches("abc".to_string()));
-        // assert!(Pattern::new(".bc.".to_string()).unwrap().matches("abcd".to_string()));
-        // assert!(Pattern::new(".b.d.".to_string()).unwrap().matches("abcde".to_string()));
-        // assert!(Pattern::new(".b..d.".to_string()).unwrap().matches("abcxde".to_string()));
-        // assert!(!Pattern::new(".b.x.d.".to_string()).unwrap().matches("abcxde".to_string()));
-        //
-        // assert!(Pattern::new(".b*d.".to_string()).unwrap().matches("abcxde".to_string()));
-        // assert!(Pattern::new(".b*d*".to_string()).unwrap().matches("abcxde".to_string()));
-        // assert!(Pattern::new("*b*d.".to_string()).unwrap().matches("abcxde".to_string()));
+        assert!(Pattern::new("".to_string()).is_err());
+        assert!(Pattern::new("a".to_string()).unwrap().matches("a".to_string()));
+        assert!(!Pattern::new("a".to_string()).unwrap().matches("ab".to_string()));
+        assert!(!Pattern::new("a".to_string()).unwrap().matches("ba".to_string()));
+        assert!(!Pattern::new("a".to_string()).unwrap().matches("aab".to_string()));
+        assert!(!Pattern::new("a".to_string()).unwrap().matches("baa".to_string()));
 
-        // assert!(Pattern::new("ab.".to_string()).unwrap().matches("ab.".to_string()));
-        // assert!(Pattern::new("ab.".to_string()).unwrap().matches("ab*".to_string()));
-        // assert!(Pattern::new("ab*".to_string()).unwrap().matches("ab*".to_string()));
+        assert!(Pattern::new("a.".to_string()).unwrap().matches("ab".to_string()));
+        assert!(Pattern::new("a..".to_string()).unwrap().matches("abc".to_string()));
+        assert!(!Pattern::new("a.".to_string()).unwrap().matches("abc".to_string()));
+        assert!(Pattern::new("..c".to_string()).unwrap().matches("abc".to_string()));
+        assert!(Pattern::new(".c".to_string()).unwrap().matches("ac".to_string()));
+        assert!(!Pattern::new("..c".to_string()).unwrap().matches("ac".to_string()));
+
+        assert!(Pattern::new(".b.".to_string()).unwrap().matches("abc".to_string()));
+        assert!(Pattern::new(".bc.".to_string()).unwrap().matches("abcd".to_string()));
+        assert!(Pattern::new(".b.d.".to_string()).unwrap().matches("abcde".to_string()));
+        assert!(Pattern::new(".b..d.".to_string()).unwrap().matches("abcxde".to_string()));
+        assert!(!Pattern::new(".b.x.d.".to_string()).unwrap().matches("abcxde".to_string()));
+
+        assert!(Pattern::new(".b*d.".to_string()).unwrap().matches("abcxde".to_string()));
+        assert!(Pattern::new(".b*d*".to_string()).unwrap().matches("abcxde".to_string()));
+        assert!(Pattern::new("*b*d.".to_string()).unwrap().matches("abcxde".to_string()));
+
+        assert!(Pattern::new("ab.".to_string()).unwrap().matches("ab.".to_string()));
+        assert!(Pattern::new("ab.".to_string()).unwrap().matches("ab*".to_string()));
+        assert!(Pattern::new("ab*".to_string()).unwrap().matches("ab*".to_string()));
         assert!(Pattern::new(r#"ab\."#.to_string()).unwrap().matches("ab.".to_string()));
-    //     assert!(!Pattern::new("ab\.".to_string()).unwrap().matches("ab.d".to_string()));
-    //     assert!(!Pattern::new("ab\.".to_string()).unwrap().matches("abcd".to_string()));
-    //     assert!(!Pattern::new("ab\.d".to_string()).unwrap().matches("abcd".to_string()));
-    //     assert!(Pattern::new("ab\.d".to_string()).unwrap().matches("ab.d".to_string()));
+        assert!(!Pattern::new(r#"ab\."#.to_string()).unwrap().matches("ab.d".to_string()));
+        assert!(!Pattern::new(r#"ab\."#.to_string()).unwrap().matches("abcd".to_string()));
+        assert!(!Pattern::new(r#"ab\.d"#.to_string()).unwrap().matches("abcd".to_string()));
+        assert!(Pattern::new(r#"ab\.d"#.to_string()).unwrap().matches("ab.d".to_string()));
     }
 }

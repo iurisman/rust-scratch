@@ -1,14 +1,14 @@
 use std::str::Chars;
 
-struct PushBackChars<'a> {
-    iter: std::str::Chars<'a>,
+pub struct PushBackChars<'a> {
+    iter: Chars<'a>,
     stack: Vec<char>,
 }
 impl PushBackChars<'_> {
-    fn new(chars: Chars) -> PushBackChars {
+    pub fn new(chars: Chars) -> PushBackChars {
         PushBackChars{iter: chars, stack: Vec::new() }
     }
-    fn push(&mut self, c: char) {
+    pub fn push(&mut self, c: char) {
         self.stack.push(c);
     }
 }
@@ -33,6 +33,11 @@ mod tests {
         assert_eq!(Some('e'), pbi.next());
         pbi.push('x');
         assert_eq!(Some('x'), pbi.next());
+        assert_eq!(Some('l'), pbi.next());
+        pbi.push('y');
+        pbi.push('z');
+        assert_eq!(Some('z'), pbi.next());
+        assert_eq!(Some('y'), pbi.next());
         assert_eq!(Some('l'), pbi.next());
     }
 }
